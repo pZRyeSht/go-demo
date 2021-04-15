@@ -20,27 +20,33 @@ func Init() *redis.Client {
 	return redis.NewClient(options)
 }
 
-func main() {
-	cli := Init()
-	// 1.non pipeline
+// non pipeline
+func EgNonPipeline(client *redis.Client) {
 	ctx := context.TODO()
 	now := time.Now()
 	for i := 0; i < 10000; i++ {
-		cli.Set(ctx,strconv.Itoa(i), 1, 100 * time.Second)
+		client.Set(ctx, strconv.Itoa(i), 1, 100*time.Second)
 	}
-	fmt.Println("处理10000条数据，单条执行耗时：", time.Since(now))
-	// 处理10000条数据，单条执行耗时： 653.327414ms
+	fmt.Println("NonPipeline 处理10000条数据，单条执行耗时：", time.Since(now))
+}
 
-	// 2.pipeline
-	//pipeCli := cli.Pipeline()
-	//for i := 0; i < 10000; i++ {
-	//	pipeCli.Set(ctx,strconv.Itoa(i), 1, 100 * time.Second)
-	//}
-	//_, err := pipeCli.Exec(ctx)
-	//if err != nil {
-	//	fmt.Println("level=error, ", err)
-	//	return
-	//}
-	//fmt.Println("处理10000条数据，单条执行耗时：", time.Since(now))
-	// 处理10000条数据，单条执行耗时： 30.777338ms
+func EgPipeline(client *redis.Client) {
+	ctx := context.TODO()
+	now := time.Now()
+	pipeCli := client.Pipeline()
+	for i := 0; i < 10000; i++ {
+		pipeCli.Set(ctx, strconv.Itoa(i), 1, 100*time.Second)
+	}
+	_, err := pipeCli.Exec(ctx)
+	if err != nil {
+		fmt.Println("level=error, ", err)
+		return
+	}
+	fmt.Println("Pipeline 处理10000条数据，单条执行耗时：", time.Since(now))
+}
+
+func main() {
+	cli := Init()
+	EgNonPipeline(cli)
+	EgPipeline(cli)
 }
