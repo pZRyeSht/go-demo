@@ -8,7 +8,9 @@ import (
 	"time"
 )
 
-// redis pipeline usage eg
+/*
+   redis pipeline usage eg
+*/
 
 func Init() *redis.Client {
 	options := &redis.Options{
@@ -30,6 +32,7 @@ func EgNonPipeline(client *redis.Client) {
 	fmt.Println("NonPipeline 处理10000条数据，单条执行耗时：", time.Since(now))
 }
 
+// pipeline
 func EgPipeline(client *redis.Client) {
 	ctx := context.TODO()
 	now := time.Now()
