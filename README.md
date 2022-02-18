@@ -1,4 +1,4 @@
-# Go-Demo
+# go-demo
 
 Golang学习的相关的练习demo
 
