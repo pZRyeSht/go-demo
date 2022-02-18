@@ -22,7 +22,7 @@ func Init() *redis.Client {
 	return redis.NewClient(options)
 }
 
-// non pipeline
+// EgNonPipeline non pipeline
 func EgNonPipeline(client *redis.Client) {
 	ctx := context.TODO()
 	now := time.Now()
@@ -32,7 +32,7 @@ func EgNonPipeline(client *redis.Client) {
 	fmt.Println("NonPipeline 处理10000条数据，单条执行耗时：", time.Since(now))
 }
 
-// pipeline
+// EgPipeline pipeline
 func EgPipeline(client *redis.Client) {
 	ctx := context.TODO()
 	now := time.Now()

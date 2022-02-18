@@ -60,7 +60,7 @@ func Is() {
 	fmt.Println("------------Is End------------")
 }
 
-// As会将err中的error chain上的每个error type与target的类型做匹配，如果相同，则返回true，
+// MyError As会将err中的error chain上的每个error type与target的类型做匹配，如果相同，则返回true，
 // 并且将匹配的那个error var的地址赋值给target，相当于通过As的target将error chain中类型匹配的那个error变量析出
 // xerrors的As方法原型:func As(err error, target interface{}) bool
 type MyError struct{}
