@@ -37,7 +37,7 @@ func main() {
 	fmt.Println(respOne)
 }
 
-// context + channel
+// GetResp context + channel
 func GetResp(req []*Req) (resp []*Resp, err error) {
 	// 获取一个10second超时的ctx
 	_ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
@@ -94,10 +94,10 @@ func getSomeThing(id int) (string, error) {
 	return fmt.Sprintf("Return::%s", strconv.Itoa(id)), nil
 }
 
-// 最大单次请求数
+// MaxQueryCount 最大单次请求数
 const MaxQueryCount = 10
 
-// waitGroup + context + channel
+// GetRespOne waitGroup + context + channel
 // 并发请求第三方接口
 func GetRespOne(ctx context.Context, req []*Req) (resp []*Resp, err error) {
 	if len(req) == 0 {
