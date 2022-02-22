@@ -11,3 +11,7 @@
 
 * 观察者模式（Event-Subscriber
 * 模板方法（Template Method）
+
+## 学习
+
+* atomic.Value
