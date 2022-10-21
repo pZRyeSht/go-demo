@@ -133,7 +133,7 @@ func (a *JWTAuth) Destroy(ctx context.Context, xToken string) error {
 	}
 	// 则将未过期的令牌放入Storage
 	return a.callStore(func(store Storage) error {
-		return store.SetKey(ctx, xToken, time.Unix(claims.ExpiresAt.Unix(), 0).Sub(time.Now()))
+		return store.SetKey(ctx, xToken, time.Until(time.Unix(claims.ExpiresAt.Unix(), 0)))
 	})
 }
 

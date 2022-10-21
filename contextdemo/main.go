@@ -50,6 +50,7 @@ func GetResp(req []*Req) (resp []*Resp, err error) {
 
 	// 遍历req，发起并发请求
 	for k, v := range req {
+		v := v
 		go func(ctx context.Context, index int, re *Req) {
 			// 延迟执行
 			defer func() {
@@ -83,6 +84,7 @@ func GetResp(req []*Req) (resp []*Resp, err error) {
 		case <-msgCh:
 			waitQueue--
 			if waitQueue == 0 {
+				cancel()
 				return res, nil
 			}
 		}
@@ -161,11 +163,8 @@ func getSomeThingOne(ctx context.Context, ch chan<- []*Resp, wg *sync.WaitGroup,
 		return
 	default:
 	}
-
 	// get result
 	ch <- getSomeThingTwe(req)
-
-	return
 }
 
 func getSomeThingTwe(req []*Req) (resp []*Resp) {

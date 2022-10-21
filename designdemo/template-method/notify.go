@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // INotify 抽象类封装不变的部分，扩展可变部分
 type INotify interface {
 	genRandomCode(int) string                                        // 生成验证码
@@ -28,7 +26,7 @@ func (n *Notify) sendVerifyCode(account, msg string, option ...interface{}) erro
 }
 
 // 公共复用默认实现，由抽象类实现
-func (n *Notify) print(msg string) error {
-	fmt.Println(msg)
-	return nil
-}
+// func (n *Notify) print(msg string) error {
+// 	fmt.Println(msg)
+// 	return nil
+// }

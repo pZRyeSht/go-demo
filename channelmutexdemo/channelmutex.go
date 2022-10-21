@@ -1,7 +1,6 @@
 package channelmutex
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -71,13 +70,4 @@ func (m *Mutex) TryWithTimeout(timeout time.Duration) bool {
 // IsLocked 锁是否已被持有
 func (m *Mutex) IsLocked() bool {
 	return len(m.ch) == 0
-}
-
-
-func main() {
-	m := NewMutex()
-	ok := m.TryLock()
-	fmt.Printf("locked v %v\n", ok)
-	ok = m.TryLock()
-	fmt.Printf("locked %v\n", ok)
 }
