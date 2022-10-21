@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	//rsa 密钥文件产生
+	// rsa 密钥文件产生
 	fmt.Println("-------------------------------获取RSA公私钥-------------------------------")
 	prvKey, pubKey := GenerateRsaKey(1024)
 	fmt.Println(string(prvKey))
@@ -56,12 +56,12 @@ func GenerateRsaKey(keySize int) (prvKey, pubKey []byte) {
 	// 4. pem 编码
 	prvKey = pem.EncodeToMemory(block)
 	// 5. 同时可选择写入文件
-	//file, err := os.Create("private.pem")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//_ = pem.Encode(file, block)
-	//_ = file.Close()
+	// file, err := os.Create("private.pem")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// _ = pem.Encode(file, block)
+	// _ = file.Close()
 
 	// ============ 公钥 ============
 	// 1.私钥派生公钥
@@ -76,12 +76,12 @@ func GenerateRsaKey(keySize int) (prvKey, pubKey []byte) {
 		Bytes: derPkix,
 	}
 	pubKey = pem.EncodeToMemory(block)
-	//file, err = os.Create("public.pem")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//_ = pem.Encode(file, block)
-	//_ = file.Close()
+	// file, err = os.Create("public.pem")
+	// if err != nil {
+	//	 panic(err)
+	// }
+	// _ = pem.Encode(file, block)
+	// _ = file.Close()
 	return prvKey, pubKey
 }
 
@@ -130,7 +130,7 @@ func RsaVerySignWithSha256(data, signData, keyBytes []byte) bool {
 
 // RsaEncrypt 公钥加密
 func RsaEncrypt(data, keyBytes []byte) []byte {
-	//解密pem格式的公钥
+	// 解密pem格式的公钥
 	block, _ := pem.Decode(keyBytes)
 	if block == nil {
 		panic(errors.New("public key error"))
@@ -142,7 +142,7 @@ func RsaEncrypt(data, keyBytes []byte) []byte {
 	}
 	// 类型断言
 	pub := pubInterface.(*rsa.PublicKey)
-	//加密
+	// 加密
 	ciphertext, err := rsa.EncryptPKCS1v15(rand.Reader, pub, data)
 	if err != nil {
 		panic(err)
@@ -152,12 +152,12 @@ func RsaEncrypt(data, keyBytes []byte) []byte {
 
 // RsaDecrypt 私钥解密
 func RsaDecrypt(ciphertext, keyBytes []byte) []byte {
-	//获取私钥
+	// 获取私钥
 	block, _ := pem.Decode(keyBytes)
 	if block == nil {
-		panic(errors.New("private key error!"))
+		panic(errors.New("private key error"))
 	}
-	//解析PKCS1格式的私钥
+	// 解析PKCS1格式的私钥
 	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
 		panic(err)
@@ -216,6 +216,5 @@ func SegmentRSADecrypt(ciphertext []byte, splitLen int, priK []byte) []byte {
 
 		rsaDecryptRes = rsaDecryptRes + string(resDecodeV)
 	}
-
 	return []byte(rsaDecryptRes)
 }

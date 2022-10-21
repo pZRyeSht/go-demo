@@ -1,4 +1,4 @@
-package main
+package safemap
 
 /**
 并发安全的map
@@ -100,8 +100,4 @@ func NewSafeMap() SafeMapImp {
 	smp := make(safeMap)
 	go smp.run()
 	return smp
-}
-
-func main() {
-
 }

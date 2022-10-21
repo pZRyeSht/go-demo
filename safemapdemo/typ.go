@@ -1,4 +1,4 @@
-package main
+package safemap
 
 // 操作安全的map structure
 type cmdMapData struct {
