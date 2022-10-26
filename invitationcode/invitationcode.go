@@ -2,6 +2,12 @@ package invitationcode
 
 import "strings"
 
+/**
+选取数字加英文字母组成32个字符的字符串，用于表示32进制数
+用一个特定的字符比如`X`作为分隔符，解析的时候字符`X`后面的字符不参与运算
+LEN表示邀请码长度，默认为6
+**/
+
 const (
 	BASE    = "SE8D9ZGW2YLT6NBQ7FCP5IKM3JUA4RHV"
 	DECIMAL = 32
@@ -29,15 +35,18 @@ func EncodeInviteCode(inviteId uint64) string {
 	return res
 }
 
+// DecodeInviteCode 解析
 func DecodeInviteCode(code string) uint64 {
 	res := uint64(0)
 	lenCode := len(code)
-	baseArr := []byte(BASE)       // 字符串进制转换为byte数组
-	baseRev := make(map[byte]int) // 进制数据键值转换为map
+	// 字符串进制转换为byte数组
+	baseArr := []byte(BASE)
+	// 进制数据键值转换为map
+	baseRev := make(map[byte]int)
 	for k, v := range baseArr {
 		baseRev[v] = k
 	}
-	// 查找补位字符的位置
+	// 查找PAD字符的位置
 	isPad := strings.Index(code, PAD)
 	if isPad != -1 {
 		lenCode = isPad
