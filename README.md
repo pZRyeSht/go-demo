@@ -2,13 +2,14 @@
 
 ## Golang Practical Case
 
-* [Context](contextdemo/main.go)
-* [x errors](xerrorsdemo/main.go)
-* [go-redis pipeline](redispipelinedemo/main.go)
-* [safe map](safemapdemo/main.go)
-* [channel mutex](channelmutexdemo/main.go)
-* [rsa](utils_rsa/main.go)
-* [jwt token](jwt/auth/auth_test.go)
+* [Context](contextdemo)
+* [x errors](xerrorsdemo)
+* [go-redis pipeline](redispipelinedemo)
+* [safe map](safemapdemo)
+* [channel mutex](channelmutexdemo)
+* [rsa](utils_rsa)
+* [jwt token](jwt)
+* [eth](eth)
 
 ## Design Patterns
 
