@@ -11,6 +11,8 @@ import (
 // PersonalSignature
 // Sign calculates an Ethereum ECDSA signature for:
 // keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))
+// Note, the produced signature conforms to the secp256k1 curve R, S and V values,
+// where the V value will be 27 or 28 for legacy reasons.
 func PersonalSignature(message string, privateKeyStr string) (string, error) {
 	fullMessage := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
 	hash := crypto.Keccak256Hash([]byte(fullMessage))
@@ -26,7 +28,11 @@ func PersonalSignature(message string, privateKeyStr string) (string, error) {
 	return hexutil.Encode(signature), nil
 }
 
-func VerifySignature(message, address, signature string) (bool, error){
+// VerifySignature
+// hash = keccak256("\x19Ethereum Signed Message:\n"${message length}${message})
+// Note, the signature must conform to the secp256k1 curve R, S and V values, where
+// the V value must be 27 or 28 for legacy reasons.
+func VerifySignature(message, address, signature string) (bool, error) {
 	signatureBytes := hexutil.MustDecode(signature)
 	if len(signatureBytes) != crypto.SignatureLength {
 		return false, fmt.Errorf("signature must be %d bytes long", crypto.SignatureLength)
@@ -38,7 +44,7 @@ func VerifySignature(message, address, signature string) (bool, error){
 	hash := accounts.TextHash([]byte(message))
 	recovered, err := crypto.SigToPub(hash, signatureBytes)
 	if err != nil {
-		return false,err
+		return false, err
 	}
 	recoveredAddr := crypto.PubkeyToAddress(*recovered)
 	return strings.ToLower(address) == strings.ToLower(recoveredAddr.Hex()), err
