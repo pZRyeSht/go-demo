@@ -3,6 +3,7 @@ package eth_sign
 import (
 	"crypto/ecdsa"
 	"errors"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -43,4 +44,22 @@ func VerifySignature(message, privateKeyStr, signature string) (bool, error){
 		return false, errors.New("verify signature error")
 	}
 	return true, nil
+}
+
+// PersonalSignature
+// Sign calculates an Ethereum ECDSA signature for:
+// keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))
+func PersonalSignature(message string, privateKeyStr string) (string, error) {
+	fullMessage := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
+	hash := crypto.Keccak256Hash([]byte(fullMessage))
+	privateKey, err := crypto.HexToECDSA(privateKeyStr)
+	if err != nil {
+		return "", err
+	}
+	signature, err := crypto.Sign(hash.Bytes(), privateKey)
+	if err != nil {
+		return "", err
+	}
+	signature[64] += 27
+	return hexutil.Encode(signature), nil
 }
