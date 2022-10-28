@@ -27,4 +27,3 @@ type Author interface {
 	// Close 释放资源
 	Close() error
 }
-

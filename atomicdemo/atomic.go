@@ -24,11 +24,11 @@ func IntStructWithLock() {
 		for {
 			i++
 			lock.Lock()
-			is.q = []int{i, i+1, i+3}
+			is.q = []int{i, i + 1, i + 3}
 			lock.Unlock()
 		}
 	}()
-	
+
 	// 读
 	var wg sync.WaitGroup
 	for i := 0; i < 3; i++ {
@@ -54,7 +54,7 @@ func IntStructWithAtomic() {
 		i := 0
 		for {
 			i++
-			is.q = []int{i, i+1, i+3}
+			is.q = []int{i, i + 1, i + 3}
 			ato.Store(is)
 		}
 	}()

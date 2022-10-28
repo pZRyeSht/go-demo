@@ -19,4 +19,3 @@ func BenchmarkWithAtomic(b *testing.B) {
 		}
 	}
 }
-

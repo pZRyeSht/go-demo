@@ -8,7 +8,7 @@ import (
 
 func TestAuth(t *testing.T) {
 	rd := NewStorage(&RedisConfig{
-		Addr: "127.0.0.1:6379",
+		Addr:         "127.0.0.1:6379",
 		DB:           0,
 		Password:     "",
 		ReadTimeout:  20,
