@@ -12,6 +12,7 @@
 * [jwt token](jwt)
 * [eth](eth)
 * [invitationcode](invitationcode)
+* [iota](iota)
 
 ## Design Patterns
 
