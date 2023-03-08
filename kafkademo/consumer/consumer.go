@@ -78,6 +78,7 @@ func (m MessageHandler) ConsumeClaim(session sarama.ConsumerGroupSession, claim 
 			return err
 		}
 		// handler data logic
+		log.Println("consumer message success :", msg)
 		// mark message and auto commit
 		session.MarkMessage(message, "")
 	}

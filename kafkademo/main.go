@@ -7,7 +7,7 @@ import (
 
 func main() {
 	topic := "test_topic"
-	address := "127.0.0.1:9092"
+	address := "192.168.215.21:9092"
 	group := "test_group"
 	handler := consumer.NewMessageHandler()
 	cons := consumer.NewMessageConsumer([]string{address}, group, []string{topic}, handler)
