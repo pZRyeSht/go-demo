@@ -1,6 +1,6 @@
 # go-demo
 
-## Golang Practical Case
+## Golang Demo 
 
 * [Context](contextdemo)
 * [x errors](xerrorsdemo)
@@ -13,6 +13,7 @@
 * [eth](eth)
 * [invitationcode](invitationcode)
 * [iota](iota)
+* [kafka](kafkademo)
 
 ## Design Patterns
 
