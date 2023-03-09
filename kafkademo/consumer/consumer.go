@@ -19,9 +19,7 @@ type MessageConsumer struct {
 
 func NewMessageConsumer(address []string, group string, topics []string, handler *MessageHandler) *MessageConsumer {
 	conf := sarama.NewConfig()
-	var bsList []sarama.BalanceStrategy
-	bsList = append(bsList, sarama.BalanceStrategyRange)
-	conf.Consumer.Group.Rebalance.GroupStrategies = bsList
+	conf.Consumer.Group.Rebalance.GroupStrategies = []sarama.BalanceStrategy{sarama.BalanceStrategyRange}
 	conf.Consumer.Offsets.Retry.Max = 3
 	conf.Consumer.Offsets.Initial = sarama.OffsetOldest
 	conf.Consumer.Offsets.AutoCommit.Enable = true
