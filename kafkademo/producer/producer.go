@@ -18,10 +18,10 @@ func NewMessageProducer(address []string, topic string) *MessageProducer {
 	conf := sarama.NewConfig()
 	conf.Producer.Return.Errors = true
 	conf.Producer.Return.Successes = true
-	conf.Producer.Retry.Max = 3
-	conf.Producer.Retry.Backoff = 100 * time.Millisecond
+	conf.Producer.Retry.Max = 3 // 最大重试次数
+	conf.Producer.Retry.Backoff = 100 * time.Millisecond // 两次重试之间等待群集稳定的时间，默认值为100ms
 	conf.Producer.RequiredAcks = sarama.WaitForAll // 发送完数据需要leader和follow都确认，才会返回
-	conf.Producer.Partitioner = sarama.NewHashPartitioner
+	conf.Producer.Partitioner = sarama.NewHashPartitioner // 根据hash算法分区
 
 	asyncProducer, err := sarama.NewAsyncProducer(address, conf)
 	if err != nil {
